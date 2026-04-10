@@ -1,113 +1,126 @@
-# Physics Explanation Discourse Bank (PEDB): A Linguistically Annotated Benchmark for Evaluating AI-Generated Physics Explanations
+# PEDB-Pilot: A Discourse Benchmark for Evaluating AI-Generated Physics Explanations
 
 ## Abstract
-We introduce the Physics Explanation Discourse Bank (PEDB), a compact benchmark for evaluating AI-generated introductory physics explanations with a discourse-aware framework. Existing physics evaluations mainly prioritize answer correctness, but tutoring and scientific communication also require explanation quality. PEDB pairs human and model-generated responses to shared prompts and annotates each explanation for ten discourse moves, including principle invocation, causal linkage, assumption marking, misconception repair, and math-to-concept mapping, plus five quality ratings. We provide baseline analyses of discourse-move prevalence and quality patterns across human and AI sources. Initial findings show that model outputs are often fluent yet structurally incomplete on key pedagogical dimensions. PEDB contributes a reusable annotation protocol and benchmark format for discourse-sensitive assessment of AI systems in physics education.
+Large language models can generate fluent introductory physics explanations, but fluency alone does not guarantee pedagogical quality. We present PEDB-Pilot, a benchmark of 60 explanations (20 human, 40 AI) across 20 conceptual prompts in mechanics, electricity and magnetism, and thermo/energy topics. We annotate explanations with a discourse taxonomy and holistic quality ratings. A calibration subset of 12 explanations (72 paired sentence labels) yielded moderate reliability in an initial 6-label scheme (Cohen's kappa = 0.5045), with dominant confusion between PRINCIPLE and DERIVE. After a reliability-driven taxonomy refinement merging those two into PRINCIPLE_DERIVE, reliability improved to kappa = 0.6706 without adjudication-based relabeling. Final 5-label analyses show AI explanations underuse INTUITION moves at the explanation level (20% vs 35% for human, -15 pp) and score lower on completeness (4.0 vs 5.0).
 
 ## 1. Introduction
-Recent progress in foundation models has improved performance on scientific tasks, including parts of physics reasoning. However, most current benchmarks evaluate final answers or derivation accuracy rather than explanatory quality. In educational and communication settings, this is a critical gap: an explanation can be technically correct yet pedagogically weak, or fluent yet conceptually misleading.
+AI-generated educational explanations are increasingly common in physics learning workflows. Current evaluation practices often focus on answer correctness, readability, or broad preference judgments, while underemphasizing explanation structure. In physics pedagogy, however, effective explanations require discourse moves such as contextual framing, explicit reasoning progression, assumption handling, and intuitive bridges.
 
-This paper presents PEDB, a linguistically annotated benchmark targeting explanatory discourse in introductory physics. The central claim is that explanation quality is not equivalent to answer correctness. PEDB operationalizes explanation quality through ten observable discourse moves and five quality ratings, enabling structured comparison between human and AI-generated explanations.
+PEDB-Pilot evaluates explanation quality as a discourse-structural property. The benchmark pairs human and AI responses to the same prompts and supports sentence-level move analysis plus holistic ratings. The objective is not only to test whether an explanation is correct, but whether it is instructionally useful.
 
-Our contributions are:
-1. A compact benchmark design pairing human and AI explanations for shared prompts.
-2. A physics-specific discourse annotation codebook with ambiguity-resolution rules.
-3. Baseline analyses quantifying discourse-move gaps and quality differences.
-4. A qualitative error taxonomy for recurring AI explanation failures.
+Contributions:
+1. A paired corpus of 60 introductory-physics explanations over 20 prompts.
+2. A reliability-tested discourse taxonomy for explanation analysis.
+3. Quantitative comparisons of move usage and quality ratings across human and AI explanations.
+4. A transparent reliability refinement path from a 6-label to a 5-label scheme.
+
+Core claims tested in this paper:
+1. Taxonomy reliability is materially improved by merging the dominant confusion pair (PRINCIPLE and DERIVE), raising kappa from 0.5045 to 0.6706.
+2. Relative to human explanations, AI explanations in this pilot underuse intuition-bridging discourse (20% vs 35% explanation-level presence).
+3. In this dataset, correctness is near ceiling for both sources, while completeness better separates quality (AI 4.0 vs human 5.0).
 
 ## 2. Related Work
-### 2.1 Physics reasoning evaluation
-Prior benchmark efforts in physics and scientific QA have primarily focused on answer-level performance, formal derivations, or task completion accuracy. These benchmarks are valuable for reasoning diagnostics but do not fully assess educational explanation quality.
-
-### 2.2 Explanatory discourse annotation
-NLP research has shown that explanatory and instructional text can be annotated for didactic acts, coherence moves, and pedagogical structure. These findings motivate discourse-aware evaluation beyond correctness metrics.
-
-### 2.3 Gap addressed by PEDB
-PEDB integrates these lines by introducing a benchmark that is physics-specific, explanation-centric, and annotation-driven. The goal is to assess not only whether a model reaches a correct claim, but whether it explains that claim in a learner-usable way.
+Physics reasoning benchmarks have advanced answer-level and derivation-level evaluation, but less often evaluate explanation discourse quality. In parallel, NLP work on educational and explanatory text has shown that didactic structure can be annotated and measured. PEDB-Pilot integrates these directions by introducing a discourse-aware physics explanation benchmark.
 
 ## 3. Dataset and Annotation
-### 3.1 Scope and construction
-PEDB is designed as a compact benchmark with:
-- 20 introductory physics prompts.
-- 60 explanations total: 20 human and 40 AI (two model responses per prompt).
-- Topic coverage: mechanics, electromagnetism, energy/work, and thermo/waves.
+### 3.1 Dataset scope
+PEDB-Pilot contains:
+- 20 prompts: 8 mechanics, 8 electricity and magnetism, 4 thermo/energy.
+- 60 explanations total: 20 human and 40 AI (2 AI responses per prompt).
 
-### 3.2 Annotation scheme
-Each explanation is labeled with ten binary discourse moves:
-1. problem framing
-2. principle invocation
-3. causal link
-4. math-to-concept mapping
-5. units/magnitude interpretation
-6. assumption/condition marking
-7. misconception repair
-8. analogy/intuitive bridge
-9. stepwise reasoning
-10. answer closure
+### 3.2 Annotation protocol
+Each explanation is segmented into sentences and labeled at sentence level by discourse move.
 
-Each explanation also receives five 1-5 ratings:
-- correctness
+Initial calibration used a 6-label taxonomy:
+- FRAME
+- PRINCIPLE
+- DERIVE
+- VERIFY
+- INTUITION
+- CAVEAT
+
+Holistic ratings (1-5):
 - clarity
+- correctness
 - completeness
-- accessibility
-- fluency risk
 
-### 3.3 Reliability protocol
-A 20-25 percent overlap subset is double-annotated and scored with Cohen kappa on core labels. The target threshold is kappa >= 0.67.
+### 3.3 Reliability and taxonomy refinement
+Calibration subset: 12 explanations, 72 paired sentence labels.
 
-### 3.4 Data format
-The canonical row schema is:
-`explanation_id, prompt_id, topic, source_type, explanation_text, move_* x10, correctness, clarity, completeness, accessibility, fluency_risk, notes`
+Initial reliability (6 labels):
+- Cohen's kappa: 0.5045
+- Observed agreement (Po): 0.6389
 
-## 4. Baselines and Experimental Setup
-### 4.1 Baseline A: move prevalence comparison
-We compute per-move prevalence by source type (human vs AI) and report absolute and relative gaps.
+Dominant disagreement pair:
+- PRINCIPLE -> DERIVE (10 cases)
 
-### 4.2 Baseline B: ratings distribution analysis
-We compare distributions and central tendency of five quality ratings by source type.
+Given systematic overlap between law invocation and inferential step labels, we refined the taxonomy by merging PRINCIPLE and DERIVE into PRINCIPLE_DERIVE.
 
-### 4.3 Baseline C: discourse-quality associations
-We estimate correlations between discourse-move presence and quality ratings, focusing on clarity and completeness.
+Refined reliability (5 labels):
+- Labels: FRAME, PRINCIPLE_DERIVE, VERIFY, INTUITION, CAVEAT
+- Cohen's kappa: 0.6706
+- Observed agreement (Po): 0.8333
 
-### 4.4 Optional baseline D: weak heuristic detector
-A lightweight cue-based detector is used for selected moves (for example principle terms, causal connectors, assumption markers) to establish a low-cost baseline against human labels.
+All final analyses below use this 5-label taxonomy.
+
+This refinement was chosen from observed confusion patterns in the calibration set and applied uniformly to final analyses; it was not produced by post-hoc consensus relabeling.
+
+## 4. Experimental Setup
+We compare human vs AI explanations on:
+1. Sentence-level move distribution.
+2. Explanation-level move presence rates.
+3. Holistic rating summaries.
+4. Move-rating correlations (Pearson r).
+
+For ratings, we use one consistent rater stream (`Annotator_1`) across all 60 explanations to avoid mixed-rater sparsity artifacts.
 
 ## 5. Results
-### 5.1 Annotation feasibility
-- **Table 1 placeholder:** Inter-annotator agreement on overlap subset.
-- Report kappa per core label and macro-average.
+### 5.1 Move prevalence (human vs AI)
+Explanation-level presence rates:
+- FRAME: human 100%, AI 100% (0 pp)
+- PRINCIPLE_DERIVE: human 100%, AI 100% (0 pp)
+- VERIFY: human 65%, AI 75% (+10 pp AI)
+- INTUITION: human 35%, AI 20% (-15 pp AI)
+- CAVEAT: human 40%, AI 40% (0 pp)
 
-### 5.2 Human vs AI discourse profile
-- **Table 2 placeholder:** move prevalence by source type.
-- Expected pattern: AI strong on closure and local coherence, weaker on assumption marking, misconception repair, and units/magnitude interpretation.
+Sentence-level distribution:
+- Human (n=121 sentences): FRAME 16.53%, PRINCIPLE_DERIVE 55.37%, VERIFY 13.22%, INTUITION 6.61%, CAVEAT 8.26%
+- AI (n=260 sentences): FRAME 15.38%, PRINCIPLE_DERIVE 54.62%, VERIFY 15.38%, INTUITION 3.85%, CAVEAT 10.77%
 
-### 5.3 Quality ratings comparison
-- **Figure 1 placeholder:** rating distributions for correctness, clarity, completeness, accessibility, and fluency risk.
-- Expected pattern: AI high clarity variance with elevated fluency risk under lower completeness.
+Main structural gap is lower AI use of INTUITION moves.
 
-### 5.4 Error taxonomy evidence
-- **Table 3 placeholder:** frequency of error classes E1-E7.
-- **Case examples placeholder:** one short excerpt each for E1, E3, E4.
+### 5.2 Holistic ratings
+Source-level means (Annotator_1):
+- Human (n=20): clarity 5.0, correctness 5.0, completeness 5.0
+- AI (n=40): clarity 4.875, correctness 5.0, completeness 4.0
+
+Largest rating difference is completeness (-1.0 for AI vs human).
+
+### 5.3 Move-rating correlations
+Across 60 explanations:
+- VERIFY vs clarity: r = 0.2119
+- CAVEAT vs clarity: r = 0.2462
+- INTUITION vs completeness: r = 0.1633
+- VERIFY vs completeness: r = -0.1046
+
+Correlation magnitudes are small and should be interpreted as exploratory in this pilot.
 
 ## 6. Discussion
-PEDB suggests that answer-level correctness is necessary but insufficient for evaluating AI explanations in physics. Discourse-aware signals reveal where polished responses fail pedagogically. This matters for tutoring systems and learner-facing scientific communication, where explanation structure directly affects understanding and misconception formation.
+Two results are central. First, taxonomy reliability depends heavily on category separability: the PRINCIPLE/DERIVE split produced moderate agreement, while the merged PRINCIPLE_DERIVE category produced substantial agreement suitable for pilot benchmarking. Second, AI explanations in this dataset are frequently fluent and formally correct, but comparatively weaker on intuitive bridging and completeness.
 
-The benchmark is intentionally compact to support rapid reuse and extension. Future work can expand topic breadth, include multilingual explanations, and test intervention strategies that explicitly target low-frequency discourse moves.
+This supports discourse-aware evaluation as a complement to answer-level metrics for educational AI.
 
 ## 7. Limitations
-- Small initial dataset size (60 explanations).
-- Intro-level scope may not transfer to advanced physics discourse.
-- Ratings remain human-judgment dependent despite protocol constraints.
-- Source quality variation in human explanations can influence comparative outcomes.
+- Pilot scale (60 explanations) limits generalization.
+- One-rater dominance in final full-coverage rating pass introduces potential scorer bias.
+- Ceiling effects in ratings (especially correctness) reduce variance for correlation analysis.
+- Sentence segmentation is rule-based and may blur clause-level distinctions.
+- No significance tests are reported; this paper is descriptive and benchmark-building.
 
 ## 8. Conclusion
-PEDB provides a practical benchmark for discourse-sensitive evaluation of AI-generated physics explanations. By pairing move-level annotation with quality ratings, it complements answer-level benchmarks and supports more realistic assessment of systems used in education.
+PEDB-Pilot provides a compact, reliability-audited benchmark for discourse-sensitive evaluation of AI-generated physics explanations. The benchmark shows that structure-level analysis can surface differences not captured by correctness alone and offers a practical template for larger physics explanation evaluation resources.
 
-## References (To Fill)
-- Physics benchmark and physics-AI evaluation sources.
-- Explanatory discourse annotation and pedagogical NLP sources.
-- Educational measurement sources for explanation quality.
-
-## Author Workflow Notes
-- Replace all placeholders with measured values before submission.
-- Ensure each headline claim cites exactly one table/figure or one coded example.
-- Keep final body within 4 pages excluding references.
+## References (To finalize)
+- Physics benchmark and tutoring evaluation sources
+- Discourse annotation and educational NLP sources
+- Reliability and annotation methodology references

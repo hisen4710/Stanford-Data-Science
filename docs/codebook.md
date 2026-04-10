@@ -232,3 +232,32 @@ Explanation ends abruptly without explicit closure.
   - `move_assumption_condition_marking`
   - `move_misconception_repair`
 - Target kappa: `>= 0.67`.
+
+
+# PEDB Annotation Codebook (v1.1)
+
+## Scope Freeze
+- Labels frozen for this cycle: FRAME, PRINCIPLE, DERIVE, VERIFY, INTUITION, CAVEAT
+- Ratings frozen: clarity, correctness, completeness
+
+## Tie-Break Rules (Calibration Addendum)
+
+### 1) PRINCIPLE vs DERIVE
+- Use `PRINCIPLE` when the sentence mainly states/invokes a governing law, formula, or canonical concept.
+- Use `DERIVE` when the sentence mainly advances the inferential chain (premise -> consequence).
+- If both appear, assign the sentence's primary function; brief law mention inside an inferential sentence stays `DERIVE`.
+
+### 2) FRAME vs PRINCIPLE
+- Use `FRAME` for setup/reframing (problem context, what quantity is being reasoned about, conceptual orientation).
+- Use `PRINCIPLE` when explicit law invocation is central to the sentence function.
+
+### 3) VERIFY vs CAVEAT
+- Use `VERIFY` for explicit checks (sanity check, limiting case, empirical consistency, unit/result check).
+- Use `CAVEAT` for assumptions, constraints, and scope limits.
+- If no explicit check is performed, prefer `CAVEAT`.
+
+## Adjudication Logging Rule
+For calibration disagreements, append notes in the format:
+- `ADJ: <tie-break-id + short reason>`
+
+This preserves auditability while producing a consensus label set for downstream analysis.
