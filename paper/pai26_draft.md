@@ -120,7 +120,10 @@ This supports discourse-aware evaluation as a complement to answer-level metrics
 ## 8. Conclusion
 PEDB-Pilot provides a compact, reliability-audited benchmark for discourse-sensitive evaluation of AI-generated physics explanations. The benchmark shows that structure-level analysis can surface differences not captured by correctness alone and offers a practical template for larger physics explanation evaluation resources.
 
-## References (To finalize)
-- Physics benchmark and tutoring evaluation sources
-- Discourse annotation and educational NLP sources
-- Reliability and annotation methodology references
+## References
+- Cohen, J. (1960). A coefficient of agreement for nominal scales. *Educational and Psychological Measurement*, 20(1), 37-46.
+- Landis, J. R., & Koch, G. G. (1977). The measurement of observer agreement for categorical data. *Biometrics*, 33(1), 159-174.
+- Artstein, R., & Poesio, M. (2008). Inter-coder agreement for computational linguistics. *Computational Linguistics*, 34(4), 555-596.
+- PhysReason: A Comprehensive Benchmark towards Physics-Based Reasoning. arXiv:2502.12054.
+- UGPhysics: A Comprehensive Benchmark for Undergraduate Physics Reasoning with Large Language Models. arXiv:2502.00334.
+- 2026 Conference on Physics and AI (PAI26) CFP. Stanford Data Science. [https://datascience.stanford.edu/events/center-decoding-universe/c4du-annual-conference/2026-conference-physics-and-ai-pai26](https://datascience.stanford.edu/events/center-decoding-universe/c4du-annual-conference/2026-conference-physics-and-ai-pai26)

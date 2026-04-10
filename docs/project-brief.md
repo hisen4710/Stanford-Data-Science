@@ -1,44 +1,48 @@
-# PEDB Project Brief
+# PEDB Project Brief (Final)
 
 ## Final Title
 **Physics Explanation Discourse Bank (PEDB): A Linguistically Annotated Benchmark for Evaluating AI-Generated Physics Explanations**
 
 ## One-Sentence Pitch
-PEDB is a compact public benchmark that evaluates whether AI-generated introductory physics explanations are not only correct, but also discourse-complete, pedagogically legible, and aligned with how experts explain scientific ideas.
+PEDB evaluates whether AI-generated introductory physics explanations are not only correct, but also discourse-structured and pedagogically complete.
 
 ## Core Claim (Frozen)
-Physics explanation quality is not equivalent to final-answer correctness; discourse structure contributes independent educational value and must be evaluated explicitly.
+Physics explanation quality is not equivalent to final-answer correctness; explanation discourse adds independent educational value.
 
-## Scope (Frozen)
+## Final Scope (Submission)
 - 20 intro-physics prompts
 - 60 explanations total (20 human, 40 AI)
-- 10 discourse-move labels
-- 5 quality ratings
-- Primary track: Datasets and Benchmarks
-- Secondary relevance: Education and Training
+- Final discourse taxonomy for analysis: **5 labels**
+  - `FRAME`, `PRINCIPLE_DERIVE`, `VERIFY`, `INTUITION`, `CAVEAT`
+- Final holistic ratings used in paper: **3 metrics**
+  - `correctness`, `clarity`, `completeness`
+- Primary track: **Datasets and Benchmarks**
+- Secondary relevance: **Education and Training**
 
 ## Research Questions
-1. Which discourse moves are most predictive of pedagogically strong physics explanations for beginners?
-2. How do AI-generated explanations differ from human-written explanations in discourse-move coverage and quality ratings?
-3. Can a compact, physics-specific annotation scheme be applied consistently enough to serve as a reusable benchmark?
+1. Can discourse-aware annotation provide reliable evaluation signals for physics explanations?
+2. How do AI explanations differ from human explanations in discourse-move usage?
+3. Which quality dimensions remain informative when correctness is near ceiling?
 
 ## Hypotheses
-1. AI explanations will match or exceed human explanations on fluency-facing traits (surface coherence, closure) but underperform on explanatory grounding moves (assumption marking, misconception repair, unit interpretation).
-2. Discourse moves linked to scientific grounding (principle invocation, causal bridge, math-to-concept mapping) will correlate more strongly with completeness than generic readability cues.
-3. A constrained codebook with explicit decision rules will achieve usable reliability on core labels (target Cohen’s kappa >= 0.67 on overlap subset).
+1. Reliability improves when high-confusion categories are merged (`PRINCIPLE` + `DERIVE`).
+2. AI explanations underuse intuition-bridging discourse relative to human explanations.
+3. Completeness distinguishes quality more than correctness in this pilot.
 
-## 120-Word Abstract Stub
-We introduce the Physics Explanation Discourse Bank (PEDB), a compact benchmark for evaluating AI-generated introductory physics explanations through a linguistically grounded annotation framework. Existing physics benchmarks primarily measure answer correctness, but educational usefulness also depends on explanatory discourse: principle invocation, causal bridging, assumption marking, misconception repair, and math-to-concept mapping. PEDB pairs human and model-generated explanations for shared prompts and annotates each response with discourse-move labels plus quality ratings for correctness, clarity, completeness, accessibility, and misleading fluency risk. We provide baseline analyses comparing human and AI explanations and identify failure patterns where fluent responses omit key scientific reasoning steps. PEDB supports discourse-aware evaluation for physics tutoring systems, scientific communication tools, and future benchmark development in physics-and-AI research and practical deployment decisions.
+## Final Quantitative Claims (Locked)
+1. Reliability improved from **kappa 0.5045** (6 labels) to **0.6706** (5 labels).
+2. AI underuses `INTUITION` at explanation level (**20% vs 35%**, -15 pp).
+3. AI scores lower on completeness (**4.0 vs 5.0**).
 
-## Deliverables You Own
+## Deliverables (Owner)
 - `docs/project-brief.md`
 - `docs/codebook.md`
 - `docs/annotation-spec.md`
 - `docs/error-taxonomy.md`
 - `paper/pai26_draft.md`
+- `paper/pai26_final_results.md`
+- `paper/pai26_qa_pass.md`
 
-## Immediate Execution Checklist
-1. Freeze codebook v1.0 after pilot on first 12 explanations.
-2. Annotate full set in three batches and flag uncertain rows with `notes=REVIEW`.
-3. Finalize taxonomy from repeated error patterns.
-4. Lock top three quantitative claims and map each to one table/figure.
+## Current Status
+- Steps 1-6: completed.
+- Step 7: in final packaging (NeurIPS template conversion, references finalization, OpenReview metadata checks).

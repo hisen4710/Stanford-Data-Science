@@ -56,11 +56,11 @@ This taxonomy defines recurring failure modes expected during annotation and ana
 - Allow one optional secondary code when two failures are inseparable.
 - Use taxonomy frequencies to support error-pattern claims.
 
-## Mapping to PEDB Labels (Primary)
-- `E1` -> `move_math_to_concept=0`
-- `E2` -> `move_causal_link=0`
-- `E3` -> `move_assumption_condition_marking=0`
-- `E4` -> `move_misconception_repair=0`
-- `E5` -> `move_stepwise_reasoning=0`
-- `E6` -> `move_analogy_intuitive_bridge` present but low `correctness`/high `fluency_risk`
-- `E7` -> high `clarity` with low `completeness` and high `fluency_risk`
+## Mapping to Final PEDB Taxonomy (v2.0)
+- `E1` -> weak/partial `PRINCIPLE_DERIVE` support and lower `completeness`
+- `E2` -> weak/partial `PRINCIPLE_DERIVE` support and lower `completeness`
+- `E3` -> missing or weak `CAVEAT`
+- `E4` -> missing corrective qualification (typically weak `CAVEAT`, sometimes weak `FRAME`)
+- `E5` -> compressed `PRINCIPLE_DERIVE` chain with lower `completeness`
+- `E6` -> `INTUITION` present but paired with lower `correctness` or lower `completeness`
+- `E7` -> relatively high `clarity` with lower `completeness`
